@@ -1,0 +1,3 @@
+command_parser.c:10:6:clearBuffer	16	static
+command_parser.c:18:6:clearCMDdata	16	static
+command_parser.c:26:6:command_parser_fsm	8	static
