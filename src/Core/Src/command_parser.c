@@ -31,18 +31,19 @@ void command_parser_fsm(){
 				status_parser = UART_RECEIVE;
 				clearCMDdata();
 			}
-
 			break;
 
 		case UART_RECEIVE:
 			if (buffer[index_buffer - 1] == '#') {
 				cmd_data[cmd_index] = 0;
 				status_parser = UART_WAIT;
-				cmd_flag = 1; // Flag for when a complete command is parsed for uart communication
+				cmd_flag = 1;
 			} else {
-				cmd_data[cmd_index++] = buffer[index_buffer - 1]; // Else add buffer characters into cmd_data buffer
+				cmd_data[cmd_index++] = buffer[index_buffer - 1];
 			}
+			break;
 
+		default:
 			break;
 	}
 }

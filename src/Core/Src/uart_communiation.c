@@ -24,7 +24,6 @@ void uart_communication_fsm() {
 				    ADC_Transmit();
 				}
 			}
-
 			break;
 
 		case CMD_PROCESS:
@@ -45,7 +44,8 @@ void uart_communication_fsm() {
 					status_uart = CMD_WAIT;
 				}
 			}
-
+			break;
+		default:
 			break;
 	}
 }

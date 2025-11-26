@@ -37,13 +37,13 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING, OCTETS
  16 .debug_macro  00018eff  00000000  00000000  00036ed0  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 17 .debug_line   000111bb  00000000  00000000  0004fdcf  2**0
+ 17 .debug_line   000111b9  00000000  00000000  0004fdcf  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 18 .debug_str    0008db65  00000000  00000000  00060f8a  2**0
+ 18 .debug_str    0008db65  00000000  00000000  00060f88  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 19 .comment      00000053  00000000  00000000  000eeaef  2**0
+ 19 .comment      00000053  00000000  00000000  000eeaed  2**0
                   CONTENTS, READONLY
- 20 .debug_frame  00003c80  00000000  00000000  000eeb44  2**2
+ 20 .debug_frame  00003c80  00000000  00000000  000eeb40  2**2
                   CONTENTS, READONLY, DEBUGGING, OCTETS
 
 Disassembly of section .text:
@@ -150,12 +150,12 @@ void command_parser_fsm(){
  80001b6:	d002      	beq.n	80001be <command_parser_fsm+0x12>
  80001b8:	2b01      	cmp	r3, #1
  80001ba:	d00d      	beq.n	80001d8 <command_parser_fsm+0x2c>
-				cmd_data[cmd_index++] = buffer[index_buffer - 1]; // Else add buffer characters into cmd_data buffer
+				cmd_data[cmd_index++] = buffer[index_buffer - 1];
 			}
-
 			break;
-	}
-}
+
+		default:
+			break;
  80001bc:	e02d      	b.n	800021a <command_parser_fsm+0x6e>
 			if (buffer[index_buffer - 1] == '!') {
  80001be:	4b19      	ldr	r3, [pc, #100]	; (8000224 <command_parser_fsm+0x78>)
@@ -191,13 +191,13 @@ void command_parser_fsm(){
  80001f0:	4b0b      	ldr	r3, [pc, #44]	; (8000220 <command_parser_fsm+0x74>)
  80001f2:	2200      	movs	r2, #0
  80001f4:	601a      	str	r2, [r3, #0]
-				cmd_flag = 1; // Flag for when a complete command is parsed for uart communication
+				cmd_flag = 1;
  80001f6:	4b0f      	ldr	r3, [pc, #60]	; (8000234 <command_parser_fsm+0x88>)
  80001f8:	2201      	movs	r2, #1
  80001fa:	601a      	str	r2, [r3, #0]
 			break;
  80001fc:	e00d      	b.n	800021a <command_parser_fsm+0x6e>
-				cmd_data[cmd_index++] = buffer[index_buffer - 1]; // Else add buffer characters into cmd_data buffer
+				cmd_data[cmd_index++] = buffer[index_buffer - 1];
  80001fe:	4b09      	ldr	r3, [pc, #36]	; (8000224 <command_parser_fsm+0x78>)
  8000200:	781b      	ldrb	r3, [r3, #0]
  8000202:	1e5a      	subs	r2, r3, #1
@@ -214,6 +214,7 @@ void command_parser_fsm(){
  8000216:	e000      	b.n	800021a <command_parser_fsm+0x6e>
 			break;
  8000218:	bf00      	nop
+	}
 }
  800021a:	bf00      	nop
  800021c:	bd80      	pop	{r7, pc}
@@ -1673,12 +1674,12 @@ void uart_communication_fsm() {
  800098a:	d002      	beq.n	8000992 <uart_communication_fsm+0x12>
  800098c:	2b0b      	cmp	r3, #11
  800098e:	d019      	beq.n	80009c4 <uart_communication_fsm+0x44>
+					status_uart = CMD_WAIT;
 				}
 			}
-
 			break;
-	}
-}
+		default:
+			break;
  8000990:	e041      	b.n	8000a16 <uart_communication_fsm+0x96>
 			HAL_GPIO_WritePin(LED_RED_GPIO_Port, LED_RED_Pin, 1);
  8000992:	2201      	movs	r2, #1
@@ -1757,6 +1758,7 @@ void uart_communication_fsm() {
  8000a12:	e000      	b.n	8000a16 <uart_communication_fsm+0x96>
 			break;
  8000a14:	bf00      	nop
+	}
 }
  8000a16:	bf00      	nop
  8000a18:	bd80      	pop	{r7, pc}
